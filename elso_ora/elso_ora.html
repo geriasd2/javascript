@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <script>
+    var toDos = new Map()
+    
+    function addTodos(toDo){
+        if(validateTodo(toDo)){
+            toDos.set(toDo.label, toDo);
+            return;
+        }
+        throw Error
+    }
+
+    function validateTodo(toDo){
+        return typeof toDo.label === "string" && typeof toDo.done === "boolean";
+    }
+
+    function printTodos(){
+        for ([key, toDo] of toDos){
+            console.log(toDo.label, toDo.done ? "✔" : "-")
+        }
+    }
+
+    </script>
+</html>
