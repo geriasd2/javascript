@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
+    <link rel="stylesheet" href="../css/bootstrap.css">
+    <script src="../js/bootstrap.js"></script>
     <meta charset="UTF-8">
+
+    <style>
+    ul {
+        padding: 50px;
+    }
+    </style>
+
     <script>
     var toDos = new Map()
     
@@ -17,10 +26,24 @@
     }
 
     function printTodos(){
+        let displaylist = document.getElementById("displaylist");
         for ([key, toDo] of toDos){
-            console.log(toDo.label, toDo.done ? "✔" : "-")
+            let row = document.createElement("li");
+            row.className = "list-group-item d-flex justify-content-between align-items-center";
+            row.innerHTML =  toDo.label;
+            let badge = document.createElement("span");
+            badge.className = "badge badge-primary badge-pill";
+            badge.innerHTML =toDo.done ? "✔" : "-";
+            row.appendChild(badge);
+            displaylist.appendChild(row);
         }
     }
 
     </script>
+
+    <div class="container">    
+        <ul class="list-group" id="displaylist">
+        </ul>
+    </div>
+
 </html>
