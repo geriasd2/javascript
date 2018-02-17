@@ -5,31 +5,39 @@
     <meta charset="UTF-8">
 
     <style>
-    ul {
-        padding: 50px;
-    }
+        ul{
+            padding: 50px;
+        }
+        
+        .undone{
+            background-color: red;
+        }
+
+        .done{
+            background-color: green;
+        }
+
     </style>
+    <body>
+        <div class="container">    
+            <ul class="list-group" id="displaylist">
+            </ul>
+        </div>
+    </body>
 
     <script>
     var toDos = new Map()
     
-    function addTodos(toDo){
-        if(validateTodo(toDo)){
-            toDos.set(toDo.label, toDo);
-            return;
-        }
-        throw Error
-    }
-
     function validateTodo(toDo){
         return typeof toDo.label === "string" && typeof toDo.done === "boolean";
     }
 
     function printTodos(){
         let displaylist = document.getElementById("displaylist");
+        displaylist.innerHTML = "";
         for ([key, toDo] of toDos){
             let row = document.createElement("li");
-            row.className = "list-group-item d-flex justify-content-between align-items-center";
+            row.className = "list-group-item d-flex justify-content-between align-items-center " + (toDo.done ? "done" : "undone");
             row.innerHTML =  toDo.label;
             let badge = document.createElement("span");
             badge.className = "badge badge-primary badge-pill";
@@ -39,11 +47,28 @@
         }
     }
 
+    function addTodos(toDo){
+        if(validateTodo(toDo)){
+            toDos.set(toDo.label, toDo);
+            printTodos();
+            return;
+        }
+        throw Error
+    }
+    function deleteTodo(label){
+        toDos.delete(label);
+        printTodos()
+    }
+
+    function change_state(label){
+        let toDo = toDos.get(label);
+        toDo.done = !toDo.done;
+        toDos.set(label, toDo);
+        printTodos() // ha kitorlod a ;-t akkor kurvára nem fut le
+    }
+    
+    addTodos({label: "elso", done: true});
+    addTodos({label: "masodik", done: false});
+    printTodos();
     </script>
-
-    <div class="container">    
-        <ul class="list-group" id="displaylist">
-        </ul>
-    </div>
-
 </html>
