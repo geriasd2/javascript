@@ -57,14 +57,14 @@
     }
     function deleteTodo(label){
         toDos.delete(label);
-        printTodos()
+        printTodos();
     }
 
     function change_state(label){
         let toDo = toDos.get(label);
         toDo.done = !toDo.done;
         toDos.set(label, toDo);
-        printTodos() // ha kitorlod a ;-t akkor kurvára nem fut le
+        printTodos(); // ha kitorlod a ;-t akkor kurvára nem fut le
     }
     
     addTodos({label: "elso", done: true});
